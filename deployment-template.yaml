@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app-deployment
+spec:
+  selector:
+    matchLabels:
+      app: java-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      containers:
+        - name: java-app
+          # enter the path to your image, be sure to include the correct region prefix
+          image: gru.ocir.io/grzzi9e5cwlq/javademodevops:${IMAGE_TAG}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: java-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: java-app-ing
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: java-app-service
+              port:
+                number: 8080
