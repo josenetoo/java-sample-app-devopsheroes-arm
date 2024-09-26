@@ -1,4 +1,4 @@
-name: Build and Push ARM64 Docker Image to OCI
+name: Build and Push ARM64 Docker Image to Oracle Cloud
 
 on:
   push:
