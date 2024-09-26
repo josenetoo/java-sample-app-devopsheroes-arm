@@ -11,7 +11,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello from Spring Boot!! DevOps Experience v1!!";
+        return "Hello from Spring Boot!! DevOps Experience v2!! Agora vaiiii!!";
     }
 
     public static void main(String[] args) {
