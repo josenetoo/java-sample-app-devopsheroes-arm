@@ -21,7 +21,7 @@ jobs:
       - name: Login to OCI Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ord.ocir.io
+          registry: gru.ocir.io
           username: ${{ secrets.OCI_USERNAME }}
           password: ${{ secrets.OCI_PASSWORD }}
 
@@ -40,7 +40,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ord.ocir.io/idi1o0a010nx/javademodevops:${{ github.sha }}
+          tags: gru.ocir.io/grzzi9e5cwlq/javademodevops:${{ github.sha }}
           platforms: linux/arm64
 
       - name: Update k8s Manifest
